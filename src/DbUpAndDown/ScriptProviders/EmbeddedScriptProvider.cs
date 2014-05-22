@@ -36,7 +36,7 @@ namespace DbUpAndDown.ScriptProviders
                 .GetManifestResourceNames()
                 .Where(filter)
                 .OrderBy(x => x)
-                .Select(s => SqlScript.FromStream(s, assembly.GetManifestResourceStream(s)))
+                .Select(s => SqlScript.FromResource(s, assembly))
                 .ToList();
         }
 

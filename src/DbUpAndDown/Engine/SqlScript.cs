@@ -1,5 +1,6 @@
 ﻿
 using System.IO;
+using System.Reflection;
 using System.Text;
 
 namespace DbUpAndDown.Engine
@@ -42,7 +43,7 @@ namespace DbUpAndDown.Engine
         }
 
         /// <summary>
-        /// 
+        /// Load a script form a file
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
@@ -56,17 +57,31 @@ namespace DbUpAndDown.Engine
         }
 
         /// <summary>
-        /// 
+        /// Load a script form a stream
         /// </summary>
         /// <param name="scriptName"></param>
         /// <param name="stream"></param>
         /// <returns></returns>
-        public static SqlScript FromStream(string scriptName, Stream stream)
+        private static SqlScript FromStream(string scriptName, Stream stream)
         {
             using (var resourceStreamReader = new StreamReader(stream, Encoding.Default, true))
             {
                 string c = resourceStreamReader.ReadToEnd();
                 return new SqlScript(scriptName, c);
+            }
+        }
+
+        /// <summary>
+        /// Load a script from resource
+        /// </summary>
+        /// <param name="scriptName"></param>
+        /// <param name="assembly"></param>
+        /// <returns></returns>
+        public static SqlScript FromResource(string scriptName, Assembly assembly)
+        {
+            using (var stream = assembly.GetManifestResourceStream(scriptName))
+            {
+                return FromStream(scriptName, stream);
             }
         }
     }
