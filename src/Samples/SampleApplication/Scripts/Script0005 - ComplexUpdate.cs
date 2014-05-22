@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Data;
-using DbUp.Engine;
+using DbUpAndDown.Engine;
 
 namespace SampleApplication.Scripts
 {

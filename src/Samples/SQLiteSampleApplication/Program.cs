@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Reflection;
 using System.Diagnostics;
-using DbUp;
-using DbUp.Engine;
-using DbUp.SQLite.Helpers;
+using DbUpAndDown;
+using DbUpAndDown.Engine;
+using DbUpAndDown.SQLite.Helpers;
 
 namespace SQLiteSampleApplication
 {
