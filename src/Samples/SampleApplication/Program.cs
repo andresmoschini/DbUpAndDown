@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using DbUp;
-using DbUp.Helpers;
+using DbUpAndDown;
+using DbUpAndDown.Helpers;
 
 namespace SampleApplication
 {

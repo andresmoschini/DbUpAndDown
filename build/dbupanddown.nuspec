@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<package> 
+  <metadata> 
+    <id>dbupanddown</id> 
+    <title>DbUpAndDown</title>
+    <version>0.0.0</version> 
+    <authors>Andres Moschini</authors>
+    <description>DbUpAndDown makes it easy to deploy and upgrade SQL Server databases by running change scripts.</description> 
+    <language>en-US</language>
+    <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
+    <releaseNotes>https://github.com/andresmoschini/DbUpAndDown/releases</releaseNotes>
+    <projectUrl>https://github.com/andresmoschini</projectUrl>
+  </metadata>
+</package>
