@@ -30,7 +30,8 @@ namespace DbUpAndDown.Support.SQLite
                             @"CREATE TABLE {0} (
 	SchemaVersionID INTEGER CONSTRAINT 'PK_SchemaVersions_SchemaVersionID' PRIMARY KEY AUTOINCREMENT NOT NULL,
 	ScriptName TEXT NOT NULL,
-	Applied DATETIME NOT NULL
+	Applied DATETIME NOT NULL,
+	UpScript TEXT NULL
 )", tableName);
         }
     }

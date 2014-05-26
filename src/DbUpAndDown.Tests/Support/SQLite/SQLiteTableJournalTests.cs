@@ -42,8 +42,9 @@ namespace DbUpAndDown.Tests.Support.SQLite
             var command = Substitute.For<IDbCommand>();
             var param1 = Substitute.For<IDbDataParameter>();
             var param2 = Substitute.For<IDbDataParameter>();
+            var param3 = Substitute.For<IDbDataParameter>();
             dbConnection.CreateCommand().Returns(command);
-            command.CreateParameter().Returns(param1, param2);
+            command.CreateParameter().Returns(param1, param2, param3);
             command.ExecuteScalar().Returns(x => { throw new SQLiteException("table not found"); });
             var consoleUpgradeLog = new ConsoleUpgradeLog();
             var journal = new SQLiteTableJournal(() => connectionManager, () => consoleUpgradeLog, "SchemaVersions");
@@ -52,9 +53,10 @@ namespace DbUpAndDown.Tests.Support.SQLite
             journal.StoreExecutedScript(new SqlScript("test", "select 1"));
 
             // Expect
-            command.Received(2).CreateParameter();
+            command.Received(3).CreateParameter();
             Assert.AreEqual("scriptName", param1.ParameterName);
             Assert.AreEqual("applied", param2.ParameterName);
+            Assert.AreEqual("upScript", param3.ParameterName);
             command.Received().ExecuteNonQuery();
         }
     }

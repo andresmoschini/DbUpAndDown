@@ -112,7 +112,7 @@ namespace DbUpAndDown.Support.SqlServer
             {
                 using (var command = dbCommandFactory())
                 {
-                    command.CommandText = string.Format("insert into {0} (ScriptName, Applied) values (@scriptName, @applied)", schemaTableName);
+                    command.CommandText = string.Format("insert into {0} (ScriptName, Applied, UpScript) values (@scriptName, @applied, @upScript)", schemaTableName);
 
                     var scriptNameParam = command.CreateParameter();
                     scriptNameParam.ParameterName = "scriptName";
@@ -123,6 +123,11 @@ namespace DbUpAndDown.Support.SqlServer
                     appliedParam.ParameterName = "applied";
                     appliedParam.Value = DateTime.Now;
                     command.Parameters.Add(appliedParam);
+
+                    var upScriptParam = command.CreateParameter();
+                    upScriptParam.ParameterName = "upScript";
+                    upScriptParam.Value = script.Contents;
+                    command.Parameters.Add(upScriptParam);
 
                     command.CommandType = CommandType.Text;
                     command.ExecuteNonQuery();
@@ -140,7 +145,8 @@ namespace DbUpAndDown.Support.SqlServer
             return string.Format(@"create table {0} (
 	[Id] int identity(1,1) not null constraint PK_SchemaVersions_Id primary key,
 	[ScriptName] nvarchar(255) not null,
-	[Applied] datetime not null
+	[Applied] datetime not null,
+	[UpScript] nvarchar(max) null
 )", tableName);
         }
 
