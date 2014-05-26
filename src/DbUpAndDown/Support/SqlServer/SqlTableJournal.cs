@@ -44,17 +44,17 @@ namespace DbUpAndDown.Support.SqlServer
         /// Recalls the version number of the database.
         /// </summary>
         /// <returns>All executed scripts.</returns>
-        public string[] GetExecutedScripts()
+        public SqlScript[] GetExecutedScripts()
         {
             log().WriteInformation("Fetching list of already executed scripts.");
             var exists = DoesTableExist();
             if (!exists)
             {
                 log().WriteInformation(string.Format("The {0} table could not be found. The database is assumed to be at version 0.", schemaTableName));
-                return new string[0];
+                return new SqlScript[0];
             }
 
-            var scripts = new List<string>();
+            var scripts = new List<SqlScript>();
             connectionManager().ExecuteCommandsWithManagedConnection(dbCommandFactory =>
             {
                 using (var command = dbCommandFactory())
@@ -65,7 +65,9 @@ namespace DbUpAndDown.Support.SqlServer
                     using (var reader = command.ExecuteReader())
                     {
                         while (reader.Read())
-                            scripts.Add((string)reader[0]);
+                        {
+                            scripts.Add(new SqlScript((string)reader[0], null));
+                        }
                     }
                 }
             });
